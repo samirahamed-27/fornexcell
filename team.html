@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Crew — NexCell Club | Rathinam Institute of Technology</title>
+  <meta name="description" content="Meet the 39 multidisciplinary builders, developers, designers, and innovators behind NexCell at Mirai School of Technology.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="index.html" class="nav-brand">
+          <div class="nav-logo-box">
+            <img src="images/logo.png" alt="NexCell Logo" width="36" height="36">
+          </div>
+          <div>NEXCELL<span class="dot">.</span></div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="team.html" class="nav-link active">Team</a></li>
+          <li><a href="reviews.html" class="nav-link">Reviews</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="reviews.html" class="btn-brutal nav-cta-btn">Leave a Review ★</a>
+          <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <ul>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="events.html" class="nav-link">Events &amp; Ideathons</a></li>
+        <li><a href="team.html" class="nav-link active">Builders &amp; Team</a></li>
+        <li><a href="reviews.html" class="nav-link">Student Reviews</a></li>
+        <li><a href="contact.html" class="nav-link">Contact &amp; Location</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== TICKER ==================== -->
+  <div class="ticker-banner" aria-hidden="true">
+    <div class="ticker-track">
+      <div class="ticker-item">PROTOTYPE <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">PITCH <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">BUILD <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">SHIP <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">REPEAT <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">INNOVATE <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">LEAD <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">IDEATE <span class="ticker-star">✦</span></div>
+      <!-- Loop -->
+      <div class="ticker-item">PROTOTYPE <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">PITCH <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">BUILD <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">SHIP <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">REPEAT <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">INNOVATE <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">LEAD <span class="ticker-star">✦</span></div>
+      <div class="ticker-item">IDEATE <span class="ticker-star">✦</span></div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero-section" style="padding-bottom: 20px;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">The Crew</span>
+          <h1 class="section-title">MEET THE <span class="highlight-yellow">BUILDERS</span> BEHIND NEXCELL</h1>
+          <p class="section-desc">
+            A multidisciplinary core team of 39 developers, designers, product minds, and storytellers running the show — and shipping the next big thing on campus.
+          </p>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="team-controls">
+          <div class="team-filters">
+            <button class="filter-btn active" data-filter="all">All Builders (39)</button>
+            <button class="filter-btn" data-filter="leadership">Leadership</button>
+            <button class="filter-btn" data-filter="tech">Technical / Devs</button>
+            <button class="filter-btn" data-filter="creative">Design &amp; Creative</button>
+            <button class="filter-btn" data-filter="growth">Operations &amp; Growth</button>
+          </div>
+
+          <div class="team-search-box">
+            <span style="margin-right: 8px;">🔍</span>
+            <input type="text" id="teamSearch" placeholder="Search builder by name or role...">
+          </div>
+        </div>
+
+        <!-- 39 Member Cards Grid -->
+        <div class="team-grid">
+
+        <div class="team-card leadership" data-category="leadership">
+          <span class="team-card-badge badge-red">Club President</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/kY4m8FZ/saifu.jpg" alt="Saifuddin Malek - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Saifuddin Malek</div>
+              <div class="team-role">Club President</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/saifuddin-malek/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/SaifuddinM23" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card leadership" data-category="leadership">
+          <span class="team-card-badge badge-red">Club Vice President</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/d4Rf39S8/rudra.jpg" alt="Rudranil Acharjee - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Rudranil Acharjee</div>
+              <div class="team-role">Club Vice President</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/rudranil-acharjee-30472b376/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/Rudranil6969" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card leadership" data-category="leadership">
+          <span class="team-card-badge badge-red">Treasurer</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/HfhgNpbN/Lokesh.jpg" alt="Lokesh Kumar Sahu - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Lokesh Kumar Sahu</div>
+              <div class="team-role">Treasurer</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/lokesh-kumar-sahu-2804cg/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/lokeshsahu2804-korba" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/hxg3tgTz/Professional-Image.png" alt="Nakul S Bisgond - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Nakul S Bisgond</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/nakul-s-bisgond/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/nakul-git139/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/4ZDhS282/Whats-App-Image-2026-10-18-at-22-49-19.jpg" alt="Aryan - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Aryan</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/aryan-kadam-283571381" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/AryanKadam0007" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/Hpx1xjSB/Whats-App-Image-2026-07-13-at-13-11-20.jpg" alt="Sharafat - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Sharafat</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/sharafat-gulzar-075549372?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/bhatf8910-crypto" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/hxMpNWJ4/Whats-App-Image-2026-07-13-at-13-14-16.jpg" alt="Ayesha - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Ayesha</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/ayesha-siddiqua-3b695a378/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/ayeshaseddiqua7786-lab" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/nyFjZpy/Whats-App-Image-2026-07-13-at-13-13-58.jpg" alt="Harshini - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Harshini</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/harshini-havanur-69b6583b9/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/harshiniiiiiii" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/608SGYxG/Whats-App-Image-2026-10-18-at-23-04-27.jpg" alt="Pravin - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Pravin</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/ghodakepravin154-gmail-com/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/Pravinghodake153" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/k2zWtxvy/IMG-20260825-124627.jpg" alt="Tejaswi - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Tejaswi</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/tejaswi-verma-393736381/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/tejaswiverma121-byte" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/JFK1MfZP/Whats-App-Image-2026-07-13-at-15-44-30.jpg" alt="Sarthak Thakur - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Sarthak Thakur</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/thakursarthak/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/sarthakt7111-cell" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/pBcxcj23/66-C653-B0-A2-B0-453-D-B12-E-F8793-B1-B65-BE.jpg" alt="Smit - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Smit</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/smit-khadatkar-a77538308/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/smitkhadatkar123-rgb" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/TqHsBphX/Whats-App-Image-2026-07-13-at-15-38-57.jpg" alt="Vinay - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Vinay</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/vinay-raj-285305389/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/uservinay777-space" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/WvyNGdXG/Whats-App-Image-2026-10-20-at-00-28-54.jpg" alt="Ayush - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Ayush</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/ayush-kumar-mishra-088679381/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/AyushKumarMishra123" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/HTpwHNgw/Whats-App-Image-2026-10-18-at-19-47-43.jpg" alt="Devananda - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Devananda</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/devananda-s-681b22421?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/sarah-26-bit" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/DDQL8qPN/Whats-App-Image-2026-10-18-at-23-08-48.jpg" alt="Anuj - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Anuj</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/anuj-chavan-99a28b412" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/anujschavan007-spec" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/3yG42bgB/file-00000000e09481fab74153c75d366d06.png" alt="Shiwali - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Shiwali</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/shiwali-gupta-351980364?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/ShiwaliGupta11" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/ynHs5n0S/Whats-App-Image-2026-10-18-at-23-38-48.jpg" alt="Ayush Dungarwal - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Ayush Dungarwal</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/ayush-dungarwal-93646b360/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/ayushbuilds-code" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/6RkXxFNv/Picsart-26-10-19-12-57-28-565.jpg" alt="Mukesh - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Mukesh</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/mukesh-kumar-06485222a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/itsrockmukesh" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/r2Dmz59C/Whats-App-Image-2026-10-18-at-21-39-13.jpg" alt="Sai Siddharth - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Sai Siddharth</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/sai-siddarth-463a51400?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/SaiSiddarth01" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/Kz6F2H4S/Screenshot-2026-10-19-at-1-01-23-PM.png" alt="Pabitra - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Pabitra</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/pabitra-deb-5a7888404" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/Pabitra260609" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/RkDsLRJF/Whats-App-Image-2026-10-19-at-14-37-03.jpg" alt="N.S. Samir Ahamed - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">N.S. Samir Ahamed</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/n-s-samir-ahamed-a278433b2?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/samirahamed-27" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/0j7wn40H/Whats-App-Image-2026-10-19-at-14-09-10.jpg" alt="Siddhant - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Siddhant</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/siddhant-gautam-dubey-22a16433b" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/sidd-289" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/LD9SjjX6/Whats-App-Image-2026-10-19-at-17-36-32.jpg" alt="Aditya - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Aditya</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/aditya-chaudhary-a80580427" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/AdityaChaudhary5412" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/kdgHqr8/Whats-App-Image-2026-10-19-at-21-43-42.jpg" alt="Srushti - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Srushti</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/srushti-patil-4b8588435?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/srushtipatil0193" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/LdPbf9g7/Whats-App-Image-2026-10-20-at-01-32-06.jpg" alt="Pritesh - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Pritesh</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/pritesh-singh-a851b9408?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/priteshsingh664-beep" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/997Wjyzg/Whats-App-Image-2026-10-19-at-19-15-06.jpg" alt="Harshvardhan - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Harshvardhan</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/harshvardhan-gogoi-725b59406?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/harshvgogoi" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/k2whQ4zV/Whats-App-Image-2026-10-21-at-16-57-38.jpg" alt="Tanusha - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Tanusha</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/gopanitanusha/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/gopanitanusha" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/WNgL6xZD/Whats-App-Image-2026-10-21-at-16-33-04.jpg" alt="Rimjhim - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Rimjhim</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/rimjhim-pandey-2030a1445/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/rimjhimp848-web" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/MkHn14QZ/Whats-App-Image-2025-12-12-at-19-24-40.jpg" alt="Sapnil Biswas - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Sapnil Biswas</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/sapnil-biswas-992841403/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/sapnilbiswas" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/F4fYDwCb/charu1234.jpg" alt="Jhalak Yadav - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Jhalak Yadav</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/jhalak-yadav-0b17b32b5/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/jhalak101205-cpu" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/Fkb3Rc8j/Akshara.jpg" alt="Akshara P - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Akshara P</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/akshara-p-441674381/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/vasakb" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card creative" data-category="creative">
+          <span class="team-card-badge badge-blue">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/B2bYDnJd/Anushka-Dewangan.jpg" alt="Anushka Dewangan - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Anushka Dewangan</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/anushka-dewangan/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/anushkadewangan08102006" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/sdmcQX7J/Pianak-Shah.jpg" alt="Pinank Shah - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Pinank Shah</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/pinank-shah-633a1b37a/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/pinankshah8-Aa" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/BH9HJvgc/Prateek.jpg" alt="Prateek Deep Das - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Prateek Deep Das</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/prateek-deep-das/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/prateek1970" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/bjCKnHbV/sayak.jpg" alt="Sayak Ghosh - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Sayak Ghosh</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/sayak-ghosh-cs-ai-cyber/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/CodeBySayak" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/0jzQQCD7/harsh.jpg" alt="Harsh Kholi - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Harsh Kholi</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/koliharsh/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/harshkoli1255" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card tech" data-category="tech">
+          <span class="team-card-badge badge-yellow">Member</span>
+          <div class="team-photo-wrap">
+            <img src="images/Keerthiprofile.jpg" alt="Keerthi Kumar - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Keerthi Kumar</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/keerthi-kumar-r/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/KeerthiKumarR" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card growth" data-category="growth">
+          <span class="team-card-badge badge-black">Member</span>
+          <div class="team-photo-wrap">
+            <img src="https://i.ibb.co/Kxqx1GtX/Krishna.jpg" alt="Krishna Negi - NexCell" loading="lazy" width="280" height="320" onerror="this.src='images/logo.png'">
+          </div>
+          <div class="team-info">
+            <div>
+              <div class="team-name">Krishna Negi</div>
+              <div class="team-role">Member</div>
+            </div>
+            <div class="team-social-links">
+              <a href="https://www.linkedin.com/in/krishnanegi13/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="LinkedIn">in</a><a href="https://github.com/WKr1shna" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Banner -->
+    <section style="padding: 60px 0 80px;">
+      <div class="container">
+        <div class="brutal-box" style="background: var(--color-red); padding: 48px; text-align: center;">
+          <span class="badge-brutal badge-black" style="margin-bottom: 14px;">RECRUITMENT</span>
+          <h2 style="font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 12px;">
+            WANT TO BUILD WITH THIS SQUAD?
+          </h2>
+          <p style="font-size: 1.15rem; max-width: 620px; margin: 0 auto 24px; font-weight: 600;">
+            We open membership tracks for freshers and sophomores every semester. If you love shipping fast and solving real problems, talk to us.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+            <a href="contact.html" class="btn-brutal btn-yellow btn-lg">Apply to Join NexCell ➔</a>
+            <a href="reviews.html" class="btn-brutal btn-white btn-lg">Hear Student Stories ★</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+            <div class="nav-logo-box" style="width: 36px; height: 36px;">
+              <img src="images/logo.png" alt="NexCell Logo">
+            </div>
+            <h3 style="margin: 0;">NEXCELL<span class="dot">.</span></h3>
+          </div>
+          <p>
+            The premier Entrepreneurship Club of Rathinam Institute of Technology &amp; Mirai School of Technology, Bangalore.
+          </p>
+          <div class="footer-social-row">
+            <a href="https://www.linkedin.com/company/nexcellclub/" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-sm">LinkedIn</a>
+            <a href="https://www.instagram.com/nexcell_mirai?igsh=MTM4enN2YnlpZTUzOA==" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-sm">Instagram</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="events.html">Events &amp; Ideathons</a></li>
+            <li><a href="team.html">Core Crew</a></li>
+            <li><a href="reviews.html">Testimonials</a></li>
+            <li><a href="contact.html">Campus Location</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Highlights</h4>
+          <ul class="footer-links">
+            <li><a href="events.html#flagship">Mirai 0→1 Ideathon</a></li>
+            <li><a href="events.html#speaker">Founder Speaker Series</a></li>
+            <li><a href="events.html#winners">Podium Winners</a></li>
+            <li><a href="events.html#gallery">Lookback Gallery</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Campus Desk</h4>
+          <p style="font-size: 0.95rem; margin-bottom: 12px; line-height: 1.5;">
+            📍 Survey No. 137, Doddakammanahalli Main Rd, Bengaluru, Karnataka 560076
+          </p>
+          <p style="font-size: 0.95rem; font-family: var(--font-mono); font-weight: 700;">
+            ✉️ <a href="mailto:nexcell_rathinam@msot.org" style="text-decoration: underline;">nexcell_rathinam@msot.org</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>© 2026 NexCell — Mirai School of Technology &amp; Rathinam Institute of Technology. All rights reserved.</div>
+        <div>BUILT WITH NEO-BRUTALIST PRECISION ⚡</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
