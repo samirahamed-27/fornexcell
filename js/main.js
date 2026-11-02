@@ -12,9 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --------------------------------------------------------------------------
-   CRIME SCENE TAPE PULL-BACK SCROLL EFFECT
+   CRIME SCENE TAPE PULL-BACK SCROLL EFFECT (PINNED UNTIL REVEALED)
    -------------------------------------------------------------------------- */
 function initCrimeSceneTapeScroll() {
+  const wrapper = document.getElementById('heroPinnedWrapper');
   const tape1 = document.getElementById('crimeTape1');
   const tape2 = document.getElementById('crimeTape2');
   const tapeNotice = document.getElementById('crimeTapeNotice');
@@ -25,30 +26,56 @@ function initCrimeSceneTapeScroll() {
 
   function updateTape() {
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Tape 1 (Top tape) pulls back left as user scrolls down
-    const offset1 = -scrollY * 2.6;
-    const rot1 = -3.5 - (scrollY * 0.008);
-    
-    // Tape 2 (Bottom tape) pulls back right as user scrolls down
-    const offset2 = scrollY * 2.6;
-    const rot2 = 3.2 + (scrollY * 0.008);
 
-    tape1.style.transform = `translate3d(${offset1}px, -18px, 0) rotate(${rot1}deg)`;
-    tape2.style.transform = `translate3d(${offset2}px, 18px, 0) rotate(${rot2}deg)`;
+    let progress = 0;
+    if (wrapper) {
+      const wrapperTop = wrapper.offsetTop;
+      const scrollDistance = wrapper.offsetHeight - window.innerHeight;
+      if (scrollDistance > 0) {
+        progress = Math.max(0, Math.min(1, (scrollY - wrapperTop) / scrollDistance));
+      }
+    } else {
+      progress = Math.max(0, Math.min(1, scrollY / 450));
+    }
 
-    // Tape notice badge fades out and pulls down
+    // Travel distance: dynamically sized to pull completely beyond viewport width
+    const travelDistance = Math.max(window.innerWidth * 1.35, 1500);
+    const offset1 = -progress * travelDistance;
+    const rot1 = -3.5 - (progress * 18);
+
+    const offset2 = progress * travelDistance;
+    const rot2 = 3.2 + (progress * 18);
+
+    tape1.style.transform = `translate3d(${offset1}px, -16px, 0) rotate(${rot1}deg)`;
+    tape2.style.transform = `translate3d(${offset2}px, 16px, 0) rotate(${rot2}deg)`;
+
+    // Tape notice badge
     if (tapeNotice) {
-      const opacity = Math.max(0, 1 - scrollY / 100);
-      tapeNotice.style.opacity = opacity.toString();
-      tapeNotice.style.transform = `translateY(${scrollY * 0.4}px)`;
-      tapeNotice.style.pointerEvents = opacity <= 0.05 ? 'none' : 'auto';
+      if (progress < 0.9) {
+        tapeNotice.innerHTML = `<span>🔒 CRIME SCENE BARRICADE</span><span>•</span><span>SCROLL DOWN TO PULL TAPE BACK ➔</span>`;
+        tapeNotice.style.background = 'var(--color-red)';
+        const opacity = Math.max(0, 1 - progress * 1.3);
+        tapeNotice.style.opacity = opacity.toString();
+        tapeNotice.style.transform = `translateY(${progress * 40}px)`;
+      } else {
+        tapeNotice.innerHTML = `<span>🔓 ACCESS GRANTED</span><span>•</span><span>NEXCELL REVEALED ✦</span>`;
+        tapeNotice.style.background = 'var(--color-yellow)';
+        tapeNotice.style.opacity = '1';
+        tapeNotice.style.transform = `translateY(${progress * 40}px)`;
+      }
     }
 
     ticking = false;
   }
 
   window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateTape);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
     if (!ticking) {
       window.requestAnimationFrame(updateTape);
       ticking = true;
