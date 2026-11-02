@@ -10,9 +10,9 @@
 </head>
 <body>
 
-  <!-- ==================== HEADER & NAVBAR ==================== -->
-  <header class="site-header">
-    <div class="container">
+  <!-- ==================== HEADER & NAVBAR (REVEALS AS TAPE PULLS BACK) ==================== -->
+  <header class="site-header reveal-on-tape" id="siteHeader">
+    <div class="container-wide">
       <nav class="navbar" aria-label="Main Navigation">
         <a href="index.html" class="nav-brand">
           <div class="nav-logo-box">
@@ -46,19 +46,19 @@
       <ul>
         <li><a href="index.html" class="nav-link active">Home</a></li>
         <li><a href="about.html" class="nav-link">About Us</a></li>
-        <li><a href="events.html" class="nav-link">Events & Ideathons</a></li>
-        <li><a href="team.html" class="nav-link">Builders & Team</a></li>
+        <li><a href="events.html" class="nav-link">Events &amp; Ideathons</a></li>
+        <li><a href="team.html" class="nav-link">Builders &amp; Team</a></li>
         <li><a href="reviews.html" class="nav-link">Student Reviews</a></li>
-        <li><a href="contact.html" class="nav-link">Contact & Location</a></li>
+        <li><a href="contact.html" class="nav-link">Contact &amp; Location</a></li>
       </ul>
     </div>
   </header>
 
   <main>
-    <!-- ==================== HERO SECTION (PINNED UNTIL NEXCELL IS REVEALED) ==================== -->
+    <!-- ==================== HERO SECTION (EXCLUSIVE FRONT PAGE ATTRACTION) ==================== -->
     <div class="hero-pinned-wrapper" id="heroPinnedWrapper">
       <section class="hero-section monumental-hero" id="hero">
-        <div class="container" style="position: relative; z-index: 10;">
+        <div class="container-wide" style="position: relative; z-index: 10;">
           <!-- MAIN ATTRACTION: MONUMENTAL CLUB NAME -->
           <div class="hero-monumental-header">
             <!-- Crime Scene Tapes Barricading NEXCELL Directly -->
@@ -119,177 +119,79 @@
             <div class="hero-college-badge">
               <span>🏛️ RATHINAM INSTITUTE OF TECHNOLOGY · MIRAI SCHOOL OF TECH</span>
             </div>
+
             <h1 class="hero-giant-club-name">
               NEXCELL<span class="dot">.</span>
             </h1>
+
             <div class="hero-tagline-bar">
-              <span class="badge-brutal badge-yellow" style="font-size: 1rem; padding: 6px 16px;">ENTREPRENEURSHIP CLUB</span>
+              <span class="badge-brutal badge-yellow" style="font-size: 1.05rem; padding: 6px 18px;">ENTREPRENEURSHIP CLUB</span>
               <span class="hero-tagline-pill">WHERE STUDENTS BECOME <span class="highlight-yellow">ENTREPRENEURS</span></span>
             </div>
           </div>
 
-          <!-- LOWER HERO GRID -->
-          <div class="hero-lower-grid">
-            <div class="hero-info-card brutal-box">
-              <div class="hero-meta" style="margin-bottom: 14px;">
-                <span class="badge-brutal badge-red">🚀 Bangalore Campus Chapter</span>
-                <span class="badge-brutal badge-blue">Est. 2024</span>
-              </div>
-
-              <p>
-                <strong>NexCell</strong> is the premier entrepreneurship engine of <strong>Mirai School of Technology &amp; Rathinam Institute of Technology</strong>, Bangalore. A launchpad for <span class="highlight-red">ideation</span>, <span class="highlight-blue">prototyping</span>, and <span class="highlight-yellow">founder-grade pitching</span>. We build the muscle to turn raw student ideas into scalable ventures.
-              </p>
-
-              <div class="hero-actions">
-                <a href="about.html" class="btn-brutal btn-yellow btn-lg">Explore Our Story ➔</a>
-                <a href="events.html" class="btn-brutal btn-white btn-lg">Flagship Events ⚡</a>
-                <a href="team.html" class="btn-brutal btn-black btn-lg">Meet 39 Builders 👥</a>
-              </div>
+          <!-- WIDE HERO MISSION STATEMENT -->
+          <div class="hero-wide-mission brutal-box">
+            <div class="mission-badge-group">
+              <span class="badge-brutal badge-red">🚀 Bangalore Campus Chapter</span>
+              <span class="badge-brutal badge-blue">Mirai School of Technology</span>
+              <span class="badge-brutal badge-yellow">Est. 2024</span>
             </div>
+            <p class="mission-text">
+              <strong>NexCell</strong> is the premier entrepreneurship engine of <strong>Mirai School of Technology &amp; Rathinam Institute of Technology</strong>, Bangalore — a launchpad for <span class="highlight-red">ideation</span>, <span class="highlight-blue">prototyping</span>, and <span class="highlight-yellow">founder-grade pitching</span>. We build the muscle to turn raw student ideas into scalable ventures.
+            </p>
+          </div>
 
-            <div class="hero-visual-card">
-              <span class="hero-sticker-1">🏆 MIRAI 0→1 FLAGSHIP</span>
-              <div class="hero-image-frame">
-                <img src="images/hero_ideathon.jpg" alt="Students collaborating during NexCell Ideathon" width="600" height="400">
+          <!-- WIDE HERO NAVIGATION PORTALS -->
+          <div class="hero-portals-grid">
+            <a href="about.html" class="portal-card brutal-box">
+              <div class="portal-header">
+                <span class="portal-tag bg-yellow">THE BLUEPRINT</span>
+                <span class="portal-arrow">➔</span>
               </div>
-              <div class="hero-sticker-2">
-                <span>📍 Bengaluru Tech Hub · 150+ Innovators</span>
+              <h3 class="portal-title">ABOUT US</h3>
+              <p class="portal-desc">Our story, the 4 pillars, and the 5-stage 0→1 pipeline.</p>
+            </a>
+
+            <a href="events.html" class="portal-card brutal-box">
+              <div class="portal-header">
+                <span class="portal-tag bg-red">GATHERINGS</span>
+                <span class="portal-arrow">➔</span>
               </div>
-            </div>
+              <h3 class="portal-title">EVENTS &amp; IDEATHONS</h3>
+              <p class="portal-desc">Mirai 0→1 flagship, winners podium, and speaker sessions.</p>
+            </a>
+
+            <a href="team.html" class="portal-card brutal-box">
+              <div class="portal-header">
+                <span class="portal-tag bg-blue">THE SQUAD</span>
+                <span class="portal-arrow">➔</span>
+              </div>
+              <h3 class="portal-title">39 BUILDERS</h3>
+              <p class="portal-desc">Meet leadership, tech developers, and creative minds.</p>
+            </a>
+
+            <a href="reviews.html" class="portal-card brutal-box">
+              <div class="portal-header">
+                <span class="portal-tag bg-yellow">COMMUNITY</span>
+                <span class="portal-arrow">➔</span>
+              </div>
+              <h3 class="portal-title">STUDENT REVIEWS</h3>
+              <p class="portal-desc">Honest takes from participants and review submission.</p>
+            </a>
+
+            <a href="contact.html" class="portal-card brutal-box">
+              <div class="portal-header">
+                <span class="portal-tag bg-black" style="color: #fff;">BANGALORE</span>
+                <span class="portal-arrow">➔</span>
+              </div>
+              <h3 class="portal-title">CAMPUS DESK</h3>
+              <p class="portal-desc">Campus location, interactive map, and dispatch form.</p>
+            </a>
           </div>
         </div>
       </section>
     </div>
-
-    <!-- ==================== STATS STRIP ==================== -->
-    <section class="stats-strip">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-number">150+</div>
-            <div class="stat-label">Ideathon Registrations</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">15</div>
-            <div class="stat-label">Finalist Teams Pitched</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">8</div>
-            <div class="stat-label">Innovation Domains</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">39+</div>
-            <div class="stat-label">Student Builders &amp; Crew</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== 4 CORE PILLARS ==================== -->
-    <section class="pillars-section">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-tag">Our Methodology</span>
-          <h2 class="section-title">WE DON'T TEACH ENTREPRENEURSHIP.<br><span class="highlight-yellow">WE DO IT.</span></h2>
-          <p class="section-desc">We foster innovation, leadership, and startup spirit among students — turning passionate learners into future founders through hackathons, workshops, founder talks, and live pitching arenas.</p>
-        </div>
-
-        <div class="pillars-grid">
-          <!-- Pillar 1 -->
-          <div class="pillar-card">
-            <span class="pillar-number">01</span>
-            <div>
-              <h3 class="pillar-title">Real-World Problem Solving</h3>
-              <p class="pillar-desc">Industry-relevant problem statements across diverse domains from healthtech to fintech and climate AI.</p>
-            </div>
-            <span class="pillar-badge">Domain Immersion</span>
-          </div>
-
-          <!-- Pillar 2 -->
-          <div class="pillar-card">
-            <span class="pillar-number">02</span>
-            <div>
-              <h3 class="pillar-title">Design-Driven Innovation</h3>
-              <p class="pillar-desc">Structured design thinking to craft customer-centric, validated solutions that real humans actually crave.</p>
-            </div>
-            <span class="pillar-badge">User-Centric Design</span>
-          </div>
-
-          <!-- Pillar 3 -->
-          <div class="pillar-card">
-            <span class="pillar-number">03</span>
-            <div>
-              <h3 class="pillar-title">Prototype-First Approach</h3>
-              <p class="pillar-desc">Translate ideas into interactive, testable prototypes using modern tech stacks and AI workflows fast.</p>
-            </div>
-            <span class="pillar-badge">Rapid Prototyping</span>
-          </div>
-
-          <!-- Pillar 4 -->
-          <div class="pillar-card">
-            <span class="pillar-number">04</span>
-            <div>
-              <h3 class="pillar-title">Pitch Like A Founder</h3>
-              <p class="pillar-desc">Communicate ideas clearly, confidently, and convincingly in front of seasoned venture investors and mentors.</p>
-            </div>
-            <span class="pillar-badge">Shark Tank Ready</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== FEATURED EVENT HIGHLIGHT ==================== -->
-    <section class="featured-event-section">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-tag">Flagship Gathering</span>
-          <h2 class="section-title">MOMENTS THAT <span class="highlight-red">SPARKED</span> A MOVEMENT</h2>
-          <p class="section-desc">From raw founder masterclasses to national 24hr ideathons, take a look back at our landmark achievements.</p>
-        </div>
-
-        <div class="featured-event-card">
-          <div class="featured-event-content">
-            <div style="margin-bottom: 16px;">
-              <span class="badge-brutal badge-yellow">National Ideathon</span>
-              <span class="badge-brutal badge-blue">2025 Edition</span>
-            </div>
-            <h3 style="font-size: 2.2rem; font-weight: 900; line-height: 1.15; margin-bottom: 16px; text-transform: uppercase;">
-              MIRAI 0→1 IDEATHON
-            </h3>
-            <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 24px; color: #222;">
-              Our flagship ideathon brought together 150+ student innovators across India to solve real-world problems through design thinking, AI prototyping, and founder-style pitching. 15 finalist teams competed live in a Shark Tank-style pitching arena.
-            </p>
-            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-              <a href="events.html" class="btn-brutal btn-yellow">View All Winners &amp; Photos ➔</a>
-              <a href="events.html#upcoming" class="btn-brutal btn-black">Upcoming Drop 🔒</a>
-            </div>
-          </div>
-          <div class="featured-event-img-wrap">
-            <span class="event-banner-tag">★ Grand Winner: Team Sip&amp;Go</span>
-            <img src="images/winners/sip_and_go.jpg" alt="Team Sip&Go - Grand Winners of Mirai 0 to 1" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== CALL TO ACTION BANNER ==================== -->
-    <section style="padding: 70px 0;">
-      <div class="container">
-        <div class="brutal-box" style="background: var(--color-yellow); padding: 50px 40px; text-align: center; position: relative;">
-          <span class="badge-brutal badge-black" style="margin-bottom: 16px;">JOIN THE COMMUNITY</span>
-          <h2 style="font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; text-transform: uppercase; margin-bottom: 16px; line-height: 1.15;">
-            HAVE AN IDEA? LET'S BUILD IT INTO A STARTUP.
-          </h2>
-          <p style="font-size: 1.2rem; max-width: 680px; margin: 0 auto 30px; font-weight: 600;">
-            Whether you are a developer, designer, market researcher, or visionary thinker — NexCell has a seat for you at the pitch table.
-          </p>
-          <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-            <a href="team.html" class="btn-brutal btn-red btn-lg">Meet Our 39 Builders 👥</a>
-            <a href="contact.html" class="btn-brutal btn-black btn-lg">Get in Touch ✉️</a>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- ==================== FOOTER ==================== -->

@@ -19,6 +19,7 @@ function initCrimeSceneTapeScroll() {
   const tape1 = document.getElementById('crimeTape1');
   const tape2 = document.getElementById('crimeTape2');
   const tapeNotice = document.getElementById('crimeTapeNotice');
+  const siteHeader = document.getElementById('siteHeader');
 
   if (!tape1 || !tape2) return;
 
@@ -39,7 +40,7 @@ function initCrimeSceneTapeScroll() {
     }
 
     // Travel distance: dynamically sized to pull completely beyond viewport width
-    const travelDistance = Math.max(window.innerWidth * 1.35, 1500);
+    const travelDistance = Math.max(window.innerWidth * 1.4, 1600);
     const offset1 = -progress * travelDistance;
     const rot1 = -3.5 - (progress * 18);
 
@@ -48,6 +49,14 @@ function initCrimeSceneTapeScroll() {
 
     tape1.style.transform = `translate3d(${offset1}px, -16px, 0) rotate(${rot1}deg)`;
     tape2.style.transform = `translate3d(${offset2}px, 16px, 0) rotate(${rot2}deg)`;
+
+    // REVEAL TOP NAVIGATION BAR AS THE TAPE GOES BACK
+    if (siteHeader && siteHeader.classList.contains('reveal-on-tape')) {
+      const navProgress = Math.max(0, Math.min(1, (progress - 0.12) / 0.68));
+      siteHeader.style.transform = `translate3d(0, ${-100 * (1 - navProgress)}%, 0)`;
+      siteHeader.style.opacity = navProgress.toString();
+      siteHeader.style.pointerEvents = navProgress > 0.4 ? 'auto' : 'none';
+    }
 
     // Tape notice badge
     if (tapeNotice) {
