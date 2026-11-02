@@ -8,7 +8,56 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initReviewLivePreview();
   initTeamFilters();
+  initCrimeSceneTapeScroll();
 });
+
+/* --------------------------------------------------------------------------
+   CRIME SCENE TAPE PULL-BACK SCROLL EFFECT
+   -------------------------------------------------------------------------- */
+function initCrimeSceneTapeScroll() {
+  const tape1 = document.getElementById('crimeTape1');
+  const tape2 = document.getElementById('crimeTape2');
+  const tapeNotice = document.getElementById('crimeTapeNotice');
+
+  if (!tape1 || !tape2) return;
+
+  let ticking = false;
+
+  function updateTape() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Tape 1 (Top tape) pulls back left as user scrolls down
+    const offset1 = -scrollY * 2.6;
+    const rot1 = -3.5 - (scrollY * 0.008);
+    
+    // Tape 2 (Bottom tape) pulls back right as user scrolls down
+    const offset2 = scrollY * 2.6;
+    const rot2 = 3.2 + (scrollY * 0.008);
+
+    tape1.style.transform = `translate3d(${offset1}px, -18px, 0) rotate(${rot1}deg)`;
+    tape2.style.transform = `translate3d(${offset2}px, 18px, 0) rotate(${rot2}deg)`;
+
+    // Tape notice badge fades out and pulls down
+    if (tapeNotice) {
+      const opacity = Math.max(0, 1 - scrollY / 100);
+      tapeNotice.style.opacity = opacity.toString();
+      tapeNotice.style.transform = `translateY(${scrollY * 0.4}px)`;
+      tapeNotice.style.pointerEvents = opacity <= 0.05 ? 'none' : 'auto';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateTape);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Initial position check
+  updateTape();
+}
 
 /* --------------------------------------------------------------------------
    MOBILE NAVIGATION DRAWER
@@ -204,3 +253,4 @@ function initTeamFilters() {
     });
   }
 }
+

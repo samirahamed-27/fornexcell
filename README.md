@@ -25,3 +25,4 @@ Open `index.html` in any modern web browser or serve locally:
 python3 -m http.server 8000
 ```
 Visit `http://localhost:8000` to browse the site.
+

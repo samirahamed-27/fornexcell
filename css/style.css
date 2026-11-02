@@ -485,12 +485,200 @@ button {
 }
 
 /* ==========================================================================
-   HERO SECTION (HOME)
+   HERO SECTION (HOME) & CRIME SCENE TAPE
    ========================================================================== */
 
 .hero-section {
-  padding: 70px 0 60px;
+  padding: 60px 0 60px;
   position: relative;
+}
+
+.hero-section.monumental-hero {
+  padding: 40px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Crime Scene Tape Container */
+.crime-tape-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 140px;
+  overflow: hidden;
+}
+
+.crime-tape {
+  position: relative;
+  width: 140vw;
+  max-width: 2600px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: var(--border-thick);
+  border-bottom: var(--border-thick);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 4px 4px 0px #111111;
+  user-select: none;
+  will-change: transform;
+  transition: transform 0.04s ease-out;
+  transform-origin: center center;
+}
+
+.crime-tape.tape-1 {
+  background: #111111;
+  color: #ffffff;
+  border-top: 3.5px solid var(--color-yellow);
+  border-bottom: 3.5px solid var(--color-yellow);
+  transform: translate3d(0, -18px, 0) rotate(-3.5deg);
+  z-index: 2;
+}
+
+.crime-tape.tape-2 {
+  background: var(--color-yellow);
+  color: #111111;
+  border-top: 3.5px solid #111111;
+  border-bottom: 3.5px solid #111111;
+  transform: translate3d(0, 18px, 0) rotate(3.2deg);
+  z-index: 3;
+}
+
+.tape-text-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.tape-star {
+  font-size: 1.25rem;
+}
+
+.crime-tape.tape-1 .tape-star {
+  color: var(--color-yellow);
+}
+
+.crime-tape.tape-2 .tape-star {
+  color: #111111;
+}
+
+/* Tape Scroll Indicator Pill */
+.crime-tape-notice {
+  margin-top: 24px;
+  background: var(--color-red);
+  color: var(--color-black);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-sm);
+  padding: 8px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: notice-bounce 1.8s infinite ease-in-out;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 4;
+}
+
+@keyframes notice-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Monumental Hero Typography */
+.hero-monumental-header {
+  text-align: center;
+  margin-bottom: 44px;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-college-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  background: var(--color-black);
+  color: var(--color-yellow);
+  border: var(--border-thin);
+  box-shadow: var(--shadow-xs);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.hero-giant-club-name {
+  font-size: clamp(4.5rem, 16vw, 11rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -4px;
+  text-transform: uppercase;
+  color: var(--color-black);
+  text-shadow: 6px 6px 0px var(--color-yellow), 12px 12px 0px var(--color-black);
+  margin: 0 0 16px;
+  user-select: none;
+}
+
+.hero-giant-club-name .dot {
+  color: var(--color-red);
+  text-shadow: 6px 6px 0px var(--color-black);
+}
+
+.hero-tagline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.hero-tagline-pill {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1rem, 2.2vw, 1.45rem);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Lower Hero Grid */
+.hero-lower-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-info-card {
+  padding: 38px;
+  background: var(--color-white);
+}
+
+.hero-info-card p {
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: #222222;
+  margin-bottom: 28px;
 }
 
 .hero-grid {
@@ -1647,7 +1835,8 @@ button {
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  .hero-grid {
+  .hero-grid,
+  .hero-lower-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
@@ -1716,6 +1905,30 @@ button {
   .mobile-toggle {
     display: flex;
   }
+
+  .hero-giant-club-name {
+    font-size: clamp(3.2rem, 17vw, 5.5rem);
+    letter-spacing: -2px;
+    text-shadow: 4px 4px 0px var(--color-yellow), 8px 8px 0px var(--color-black);
+  }
+
+  .crime-tape-container {
+    padding-top: 110px;
+  }
+
+  .crime-tape {
+    height: 44px;
+    width: 170vw;
+  }
+
+  .tape-text-content {
+    font-size: 0.85rem;
+    gap: 12px;
+  }
+
+  .hero-info-card {
+    padding: 24px 20px;
+  }
   
   .stats-grid {
     grid-template-columns: 1fr;
@@ -1738,3 +1951,4 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
