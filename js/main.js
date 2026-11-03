@@ -18,10 +18,15 @@ function initCrimeSceneTapeScroll() {
   const wrapper = document.getElementById('heroPinnedWrapper');
   const tape1 = document.getElementById('crimeTape1');
   const tape2 = document.getElementById('crimeTape2');
-  const tapeNotice = document.getElementById('crimeTapeNotice');
+  const tape3 = document.getElementById('crimeTape3');
+  const tape4 = document.getElementById('crimeTape4');
+  const tape5 = document.getElementById('crimeTape5');
   const siteHeader = document.getElementById('siteHeader');
 
-  if (!tape1 || !tape2) return;
+  if (!tape1 && !tape2) return;
+
+  // Degrees to radians conversion helper
+  const toRad = deg => (deg * Math.PI) / 180;
 
   let ticking = false;
 
@@ -36,42 +41,78 @@ function initCrimeSceneTapeScroll() {
         progress = Math.max(0, Math.min(1, (scrollY - wrapperTop) / scrollDistance));
       }
     } else {
-      progress = Math.max(0, Math.min(1, scrollY / 450));
+      progress = Math.max(0, Math.min(1, scrollY / 600));
     }
 
-    // Travel distance: dynamically sized to pull completely beyond viewport width
-    const travelDistance = Math.max(window.innerWidth * 1.4, 1600);
-    const offset1 = -progress * travelDistance;
-    const rot1 = -3.5 - (progress * 18);
+    // Travel distance: sized so tapes retract 100% past the viewport edges
+    const travelDistance = Math.max(window.innerWidth * 1.85, 2500);
 
-    const offset2 = progress * travelDistance;
-    const rot2 = 3.2 + (progress * 18);
+    // Tape 1: Slanted Top-Left to Bottom-Right (+6deg)
+    // Retracts strictly along length towards Top-Left (negative X, negative Y)
+    if (tape1) {
+      const angle1 = 6;
+      const rad1 = toRad(angle1);
+      const move1 = progress * travelDistance;
+      const x1 = -move1 * Math.cos(rad1);
+      const y1 = -65 - (move1 * Math.sin(rad1));
+      const r1 = angle1 - (progress * 2);
+      tape1.style.transform = `translate3d(${x1.toFixed(1)}px, ${y1.toFixed(1)}px, 0) rotate(${r1.toFixed(2)}deg)`;
+    }
 
-    tape1.style.transform = `translate3d(${offset1}px, -16px, 0) rotate(${rot1}deg)`;
-    tape2.style.transform = `translate3d(${offset2}px, 16px, 0) rotate(${rot2}deg)`;
+    // Tape 2: Slanted Bottom-Left to Top-Right (-7deg)
+    // Retracts strictly along length towards Bottom-Left (negative X, positive Y)
+    if (tape2) {
+      const angle2 = 7;
+      const rad2 = toRad(angle2);
+      const move2 = progress * travelDistance;
+      const x2 = -move2 * Math.cos(rad2);
+      const y2 = 45 + (move2 * Math.sin(rad2));
+      const r2 = -angle2 + (progress * 2);
+      tape2.style.transform = `translate3d(${x2.toFixed(1)}px, ${y2.toFixed(1)}px, 0) rotate(${r2.toFixed(2)}deg)`;
+    }
+
+    // Tape 3: Slanted Top-Left to Bottom-Right (+3.5deg)
+    // Retracts strictly along length towards Top-Left (negative X, negative Y)
+    if (tape3) {
+      const angle3 = 3.5;
+      const rad3 = toRad(angle3);
+      const move3 = progress * travelDistance;
+      const x3 = -move3 * Math.cos(rad3);
+      const y3 = -10 - (move3 * Math.sin(rad3));
+      const r3 = angle3 - (progress * 1.5);
+      tape3.style.transform = `translate3d(${x3.toFixed(1)}px, ${y3.toFixed(1)}px, 0) rotate(${r3.toFixed(2)}deg)`;
+    }
+
+    // Tape 4: Slanted Bottom-Left to Top-Right (-4.5deg)
+    // Retracts strictly along length towards Bottom-Left (negative X, positive Y)
+    if (tape4) {
+      const angle4 = 4.5;
+      const rad4 = toRad(angle4);
+      const move4 = progress * travelDistance;
+      const x4 = -move4 * Math.cos(rad4);
+      const y4 = 20 + (move4 * Math.sin(rad4));
+      const r4 = -angle4 + (progress * 1.5);
+      tape4.style.transform = `translate3d(${x4.toFixed(1)}px, ${y4.toFixed(1)}px, 0) rotate(${r4.toFixed(2)}deg)`;
+    }
+
+    // Tape 5: Slanted Top-Left to Bottom-Right (+8deg)
+    // Retracts strictly along length towards Top-Left (negative X, negative Y)
+    if (tape5) {
+      const angle5 = 8;
+      const rad5 = toRad(angle5);
+      const move5 = progress * travelDistance;
+      const x5 = -move5 * Math.cos(rad5);
+      const y5 = 80 - (move5 * Math.sin(rad5));
+      const r5 = angle5 - (progress * 2.5);
+      tape5.style.transform = `translate3d(${x5.toFixed(1)}px, ${y5.toFixed(1)}px, 0) rotate(${r5.toFixed(2)}deg)`;
+    }
 
     // REVEAL TOP NAVIGATION BAR AS THE TAPE GOES BACK
     if (siteHeader && siteHeader.classList.contains('reveal-on-tape')) {
-      const navProgress = Math.max(0, Math.min(1, (progress - 0.12) / 0.68));
-      siteHeader.style.transform = `translate3d(0, ${-100 * (1 - navProgress)}%, 0)`;
-      siteHeader.style.opacity = navProgress.toString();
+      const navProgress = Math.max(0, Math.min(1, (progress - 0.20) / 0.65));
+      siteHeader.style.transform = `translate3d(0, ${(-100 * (1 - navProgress)).toFixed(1)}%, 0)`;
+      siteHeader.style.opacity = navProgress.toFixed(2);
       siteHeader.style.pointerEvents = navProgress > 0.4 ? 'auto' : 'none';
-    }
-
-    // Tape notice badge
-    if (tapeNotice) {
-      if (progress < 0.9) {
-        tapeNotice.innerHTML = `<span>🔒 CRIME SCENE BARRICADE</span><span>•</span><span>SCROLL DOWN TO PULL TAPE BACK ➔</span>`;
-        tapeNotice.style.background = 'var(--color-red)';
-        const opacity = Math.max(0, 1 - progress * 1.3);
-        tapeNotice.style.opacity = opacity.toString();
-        tapeNotice.style.transform = `translateY(${progress * 40}px)`;
-      } else {
-        tapeNotice.innerHTML = `<span>🔓 ACCESS GRANTED</span><span>•</span><span>NEXCELL REVEALED ✦</span>`;
-        tapeNotice.style.background = 'var(--color-yellow)';
-        tapeNotice.style.opacity = '1';
-        tapeNotice.style.transform = `translateY(${progress * 40}px)`;
-      }
     }
 
     ticking = false;
