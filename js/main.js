@@ -12,25 +12,86 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* --------------------------------------------------------------------------
-   CRIME SCENE TAPE PULL-BACK SCROLL EFFECT (PINNED UNTIL REVEALED)
+   CRIME SCENE TAPE: RANDOM ENTRANCE & RANDOM LEAVE SCROLL EFFECT
    -------------------------------------------------------------------------- */
 function initCrimeSceneTapeScroll() {
   const wrapper = document.getElementById('heroPinnedWrapper');
-  const tape1 = document.getElementById('crimeTape1');
-  const tape2 = document.getElementById('crimeTape2');
-  const tape3 = document.getElementById('crimeTape3');
-  const tape4 = document.getElementById('crimeTape4');
-  const tape5 = document.getElementById('crimeTape5');
+  const tapeEls = [
+    document.getElementById('crimeTape1'),
+    document.getElementById('crimeTape2'),
+    document.getElementById('crimeTape3'),
+    document.getElementById('crimeTape4'),
+    document.getElementById('crimeTape5')
+  ];
   const siteHeader = document.getElementById('siteHeader');
 
-  if (!tape1 && !tape2) return;
+  if (!tapeEls[0] && !tapeEls[1]) return;
 
-  // Degrees to radians conversion helper
-  const toRad = deg => (deg * Math.PI) / 180;
+  // Base resting configuration for each tape over NEXCELL
+  const tapeConfigs = [
+    {
+      baseY: -65,
+      baseRot: 6,
+      // Enter from Top-Right (quadrant 1: +X, -Y)
+      enterDir: { x: 1.25, y: -0.85, rot: 18 },
+      // Leave towards Top-Left (quadrant 2: -X, -Y)
+      leaveDir: { x: -1.35, y: -0.75, rot: -22 }
+    },
+    {
+      baseY: 45,
+      baseRot: -7,
+      // Enter from Bottom-Left (quadrant 3: -X, +Y)
+      enterDir: { x: -1.30, y: 0.90, rot: -20 },
+      // Leave towards Bottom-Right (quadrant 4: +X, +Y)
+      leaveDir: { x: 1.40, y: 0.85, rot: 18 }
+    },
+    {
+      baseY: -10,
+      baseRot: 3.5,
+      // Enter from Bottom-Right (quadrant 4: +X, +Y)
+      enterDir: { x: 1.15, y: 1.05, rot: 14 },
+      // Leave towards Top-Right (quadrant 1: +X, -Y)
+      leaveDir: { x: 1.30, y: -0.95, rot: 24 }
+    },
+    {
+      baseY: 20,
+      baseRot: -4.5,
+      // Enter from Top-Left (quadrant 2: -X, -Y)
+      enterDir: { x: -1.25, y: -1.05, rot: -16 },
+      // Leave towards Bottom-Left (quadrant 3: -X, +Y)
+      leaveDir: { x: -1.35, y: 0.95, rot: -20 }
+    },
+    {
+      baseY: 80,
+      baseRot: 8,
+      // Enter from Bottom-Center / Left (-X, +Y)
+      enterDir: { x: -0.75, y: 1.35, rot: -12 },
+      // Leave towards Direct Top-Right / Far Top (+X, -Y)
+      leaveDir: { x: 0.85, y: -1.40, rot: 28 }
+    }
+  ];
 
+  // Apply subtle random jitter per visit so every reload is uniquely randomized
+  tapeConfigs.forEach(cfg => {
+    const rx = (Math.random() - 0.5) * 0.25;
+    const ry = (Math.random() - 0.5) * 0.25;
+    const rRot = (Math.random() - 0.5) * 8;
+    cfg.enterDir.x += rx;
+    cfg.enterDir.y += ry;
+    cfg.enterDir.rot += rRot;
+    cfg.leaveDir.x += rx;
+    cfg.leaveDir.y += ry;
+    cfg.leaveDir.rot += rRot;
+  });
+
+  const tapes = tapeEls.map((el, i) => ({ el, cfg: tapeConfigs[i] })).filter(t => t.el);
+
+  let isIntroAnimating = false;
   let ticking = false;
 
   function updateTape() {
+    if (isIntroAnimating) return;
+
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
     let progress = 0;
@@ -44,70 +105,17 @@ function initCrimeSceneTapeScroll() {
       progress = Math.max(0, Math.min(1, scrollY / 600));
     }
 
-    // Travel distance: sized so tapes retract 100% past the viewport edges
-    const travelDistance = Math.max(window.innerWidth * 1.85, 2500);
+    const travelDistance = Math.max(window.innerWidth * 1.85, 2600);
 
-    // Tape 1: Slanted Top-Left to Bottom-Right (+6deg)
-    // Retracts strictly along length towards Top-Left (negative X, negative Y)
-    if (tape1) {
-      const angle1 = 6;
-      const rad1 = toRad(angle1);
-      const move1 = progress * travelDistance;
-      const x1 = -move1 * Math.cos(rad1);
-      const y1 = -65 - (move1 * Math.sin(rad1));
-      const r1 = angle1 - (progress * 2);
-      tape1.style.transform = `translate3d(${x1.toFixed(1)}px, ${y1.toFixed(1)}px, 0) rotate(${r1.toFixed(2)}deg)`;
-    }
+    // Each tape leaves in its assigned random direction across all quadrants
+    tapes.forEach(({ el, cfg }) => {
+      const x = cfg.leaveDir.x * progress * travelDistance;
+      const y = cfg.baseY + (cfg.leaveDir.y * progress * travelDistance);
+      const r = cfg.baseRot + (cfg.leaveDir.rot * progress);
+      el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${r.toFixed(2)}deg)`;
+    });
 
-    // Tape 2: Slanted Bottom-Left to Top-Right (-7deg)
-    // Retracts strictly along length towards Bottom-Left (negative X, positive Y)
-    if (tape2) {
-      const angle2 = 7;
-      const rad2 = toRad(angle2);
-      const move2 = progress * travelDistance;
-      const x2 = -move2 * Math.cos(rad2);
-      const y2 = 45 + (move2 * Math.sin(rad2));
-      const r2 = -angle2 + (progress * 2);
-      tape2.style.transform = `translate3d(${x2.toFixed(1)}px, ${y2.toFixed(1)}px, 0) rotate(${r2.toFixed(2)}deg)`;
-    }
-
-    // Tape 3: Slanted Top-Left to Bottom-Right (+3.5deg)
-    // Retracts strictly along length towards Top-Left (negative X, negative Y)
-    if (tape3) {
-      const angle3 = 3.5;
-      const rad3 = toRad(angle3);
-      const move3 = progress * travelDistance;
-      const x3 = -move3 * Math.cos(rad3);
-      const y3 = -10 - (move3 * Math.sin(rad3));
-      const r3 = angle3 - (progress * 1.5);
-      tape3.style.transform = `translate3d(${x3.toFixed(1)}px, ${y3.toFixed(1)}px, 0) rotate(${r3.toFixed(2)}deg)`;
-    }
-
-    // Tape 4: Slanted Bottom-Left to Top-Right (-4.5deg)
-    // Retracts strictly along length towards Bottom-Left (negative X, positive Y)
-    if (tape4) {
-      const angle4 = 4.5;
-      const rad4 = toRad(angle4);
-      const move4 = progress * travelDistance;
-      const x4 = -move4 * Math.cos(rad4);
-      const y4 = 20 + (move4 * Math.sin(rad4));
-      const r4 = -angle4 + (progress * 1.5);
-      tape4.style.transform = `translate3d(${x4.toFixed(1)}px, ${y4.toFixed(1)}px, 0) rotate(${r4.toFixed(2)}deg)`;
-    }
-
-    // Tape 5: Slanted Top-Left to Bottom-Right (+8deg)
-    // Retracts strictly along length towards Top-Left (negative X, negative Y)
-    if (tape5) {
-      const angle5 = 8;
-      const rad5 = toRad(angle5);
-      const move5 = progress * travelDistance;
-      const x5 = -move5 * Math.cos(rad5);
-      const y5 = 80 - (move5 * Math.sin(rad5));
-      const r5 = angle5 - (progress * 2.5);
-      tape5.style.transform = `translate3d(${x5.toFixed(1)}px, ${y5.toFixed(1)}px, 0) rotate(${r5.toFixed(2)}deg)`;
-    }
-
-    // REVEAL TOP NAVIGATION BAR AS THE TAPE GOES BACK
+    // Reveal top navigation bar as the tapes leave
     if (siteHeader && siteHeader.classList.contains('reveal-on-tape')) {
       const navProgress = Math.max(0, Math.min(1, (progress - 0.20) / 0.65));
       siteHeader.style.transform = `translate3d(0, ${(-100 * (1 - navProgress)).toFixed(1)}%, 0)`;
@@ -118,7 +126,55 @@ function initCrimeSceneTapeScroll() {
     ticking = false;
   }
 
+  // Entrance animation on page load: tapes enter from random directions
+  function playEntrance() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > 40) {
+      // User refreshed while scrolled down, skip intro entrance
+      updateTape();
+      return;
+    }
+
+    isIntroAnimating = true;
+    const travelDistance = Math.max(window.innerWidth * 1.6, 2200);
+
+    // 1. Initial offscreen position along random entrance trajectory
+    tapes.forEach(({ el, cfg }) => {
+      const startX = cfg.enterDir.x * travelDistance;
+      const startY = cfg.baseY + (cfg.enterDir.y * travelDistance);
+      const startRot = cfg.baseRot + cfg.enterDir.rot;
+      el.style.transition = 'none';
+      el.style.transform = `translate3d(${startX.toFixed(1)}px, ${startY.toFixed(1)}px, 0) rotate(${startRot.toFixed(2)}deg)`;
+      el.style.opacity = '0';
+    });
+
+    // 2. Staggered slam-in entrance with snappy Neo-Brutalist curve
+    tapes.forEach(({ el, cfg }, index) => {
+      const delay = 60 + index * 90;
+      setTimeout(() => {
+        el.style.transition = 'transform 0.65s cubic-bezier(0.18, 0.95, 0.3, 1.15), opacity 0.3s ease';
+        el.style.transform = `translate3d(0px, ${cfg.baseY}px, 0) rotate(${cfg.baseRot}deg)`;
+        el.style.opacity = '1';
+      }, delay);
+    });
+
+    // 3. Once entrance animation finishes, hand control over to scroll scrubbing
+    const totalDuration = 60 + (tapes.length * 90) + 700;
+    setTimeout(() => {
+      tapes.forEach(({ el }) => {
+        el.style.transition = '';
+      });
+      isIntroAnimating = false;
+      updateTape();
+    }, totalDuration);
+  }
+
   window.addEventListener('scroll', () => {
+    if (isIntroAnimating) {
+      // If user scrolls during intro, cancel intro instantly and scrub smoothly
+      isIntroAnimating = false;
+      tapes.forEach(({ el }) => { el.style.transition = ''; });
+    }
     if (!ticking) {
       window.requestAnimationFrame(updateTape);
       ticking = true;
@@ -132,8 +188,8 @@ function initCrimeSceneTapeScroll() {
     }
   }, { passive: true });
 
-  // Initial position check
-  updateTape();
+  // Trigger random entrance on initial load
+  playEntrance();
 }
 
 /* --------------------------------------------------------------------------
