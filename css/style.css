@@ -1562,19 +1562,155 @@ button {
   position: relative;
   width: 100%;
   height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Card Faces (Front & Back) with 3D Backface Visibility */
+.tilted-card__face {
+  position: relative;
+  width: 100%;
+  height: 100%;
   background: var(--color-white);
   border: var(--border-thick);
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  transform-style: preserve-3d;
-  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   overflow: hidden;
+  isolation: isolate;
   transition: box-shadow var(--transition-snappy);
 }
 
-.team-card.tilted-card[data-active] .tilted-card__body {
+.tilted-card__front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.tilted-card__back {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: rotateY(180deg);
+  background: #fffef8;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.team-card.tilted-card[data-active] .tilted-card__face {
   box-shadow: 8px 14px 28px rgba(0, 0, 0, 0.28), 4px 4px 0px #111111;
+}
+
+/* ==========================================================================
+   CARD BACK FACE STYLES (FLIP VIEW)
+   ========================================================================== */
+
+.card-back-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px dashed #111111;
+  padding-bottom: 12px;
+}
+
+.card-back-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.card-back-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-yellow);
+  border: 2.5px solid #111111;
+  box-shadow: 3px 3px 0px #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+}
+
+.card-back-name {
+  font-size: 1.22rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  color: #111111;
+}
+
+.card-back-role-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  background: var(--color-red);
+  color: #ffffff;
+  border: 2px solid #111111;
+  box-shadow: 2px 2px 0px #111111;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.card-back-desc-box {
+  background: var(--bg-cream);
+  border: 2px solid #111111;
+  padding: 12px 14px;
+  box-shadow: 3px 3px 0px #111111;
+  text-align: left;
+  width: 100%;
+}
+
+.card-back-desc-box .desc-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #555555;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.card-back-desc-box .desc-text {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #222222;
+  margin: 0;
+}
+
+.card-back-footer {
+  border-top: 2px dashed #111111;
+  padding-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.card-back-flip-pill {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  background: #111111;
+  color: var(--color-yellow);
+  border: 2px solid #111111;
+  box-shadow: 2px 2px 0px #111111;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.15s ease;
+}
+
+.team-card:hover .card-back-flip-pill {
+  transform: scale(1.03);
 }
 
 /* Floating 3D Badge Layer */

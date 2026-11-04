@@ -389,6 +389,33 @@ const tcStep = (state, key, target, omega, zeta, dt) => {
   return !settled;
 };
 
+// Generates role-specific brief for card back face
+function getRoleBrief(role) {
+  const r = (role || '').toLowerCase();
+  if (r.includes('president') && !r.includes('vice')) {
+    return 'Club President leading overall organizational strategy, flagship ideathons, venture incubation, and university alliances.';
+  }
+  if (r.includes('vice president')) {
+    return 'Club Vice President coordinating internal operations, development tracks, team execution, and mentorship pipelines.';
+  }
+  if (r.includes('treasurer')) {
+    return 'Treasurer managing club finance, event budgets, prize allocations, sponsor funds, and financial logistics.';
+  }
+  if (r.includes('lead') || r.includes('head')) {
+    return `${role} spearheading core initiatives, student mentorship, and delivery of high-impact campus projects.`;
+  }
+  if (r.includes('developer') || r.includes('tech') || r.includes('engineer')) {
+    return 'Technical builder architecting software infrastructure, digital portals, hackathon tools, and venture MVPs.';
+  }
+  if (r.includes('design') || r.includes('creative') || r.includes('media')) {
+    return 'Creative builder shaping brutalist brand design, user interfaces, media assets, and storytelling.';
+  }
+  if (r.includes('growth') || r.includes('operations')) {
+    return 'Operations contributor driving campus community engagement, event execution, and speaker sessions.';
+  }
+  return `Core Member (${role}) active in student entrepreneurship, rapid prototyping, and startup acceleration at NexCell.`;
+}
+
 function initTiltedCards() {
   const cards = document.querySelectorAll('.team-card');
   if (!cards.length) return;
@@ -396,7 +423,7 @@ function initTiltedCards() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-  cards.forEach(card => {
+  cards.forEach((card, index) => {
     if (card.dataset.tiltedInit) return;
     card.dataset.tiltedInit = 'true';
     card.classList.add('tilted-card');
@@ -423,30 +450,69 @@ function initTiltedCards() {
     shadow.className = 'tilted-card__shadow';
     shadow.setAttribute('aria-hidden', 'true');
 
-    // Create body element and transfer existing card children into it
+    // Create 3D body element
     const body = document.createElement('div');
     body.className = 'tilted-card__body';
 
+    // FRONT FACE: transfer existing children into it
+    const front = document.createElement('div');
+    front.className = 'tilted-card__face tilted-card__front';
+
     while (card.firstChild) {
-      body.appendChild(card.firstChild);
+      front.appendChild(card.firstChild);
     }
 
-    // Append glare, rim, and edge overlays
-    const glare = document.createElement('span');
-    glare.className = 'tilted-card__glare';
-    glare.setAttribute('aria-hidden', 'true');
+    const frontGlare = document.createElement('span');
+    frontGlare.className = 'tilted-card__glare';
+    frontGlare.setAttribute('aria-hidden', 'true');
+    const frontRim = document.createElement('span');
+    frontRim.className = 'tilted-card__rim';
+    frontRim.setAttribute('aria-hidden', 'true');
+    const frontEdge = document.createElement('span');
+    frontEdge.className = 'tilted-card__edge';
+    frontEdge.setAttribute('aria-hidden', 'true');
+    front.appendChild(frontGlare);
+    front.appendChild(frontRim);
+    front.appendChild(frontEdge);
 
-    const rim = document.createElement('span');
-    rim.className = 'tilted-card__rim';
-    rim.setAttribute('aria-hidden', 'true');
+    // BACK FACE: role, small content brief & flip hint
+    const back = document.createElement('div');
+    back.className = 'tilted-card__face tilted-card__back';
+    back.setAttribute('aria-hidden', 'true');
+    back.innerHTML = `
+      <div class="card-back-header">
+        <span class="badge-brutal badge-yellow" style="font-size: 0.72rem;">NEXCELL CREW</span>
+        <span class="badge-brutal badge-black" style="font-size: 0.72rem;">#${String(index + 1).padStart(2, '0')}</span>
+      </div>
+      <div class="card-back-body">
+        <div class="card-back-icon"><span>⚡</span></div>
+        <h3 class="card-back-name">${name}</h3>
+        <div class="card-back-role-pill">ROLE: ${role}</div>
+        <div class="card-back-desc-box">
+          <div class="desc-label">MEMBER BRIEF &amp; FOCUS</div>
+          <p class="desc-text">${getRoleBrief(role)}</p>
+        </div>
+      </div>
+      <div class="card-back-footer">
+        <div class="card-back-flip-pill">↺ CLICK TO FLIP BACK</div>
+      </div>
+    `;
 
-    const edge = document.createElement('span');
-    edge.className = 'tilted-card__edge';
-    edge.setAttribute('aria-hidden', 'true');
+    const backGlare = document.createElement('span');
+    backGlare.className = 'tilted-card__glare';
+    backGlare.setAttribute('aria-hidden', 'true');
+    const backRim = document.createElement('span');
+    backRim.className = 'tilted-card__rim';
+    backRim.setAttribute('aria-hidden', 'true');
+    const backEdge = document.createElement('span');
+    backEdge.className = 'tilted-card__edge';
+    backEdge.setAttribute('aria-hidden', 'true');
+    back.appendChild(backGlare);
+    back.appendChild(backRim);
+    back.appendChild(backEdge);
 
-    body.appendChild(glare);
-    body.appendChild(rim);
-    body.appendChild(edge);
+    body.appendChild(front);
+    body.appendChild(back);
 
     // Create caption tooltip tag
     const caption = document.createElement('figcaption');
@@ -457,15 +523,17 @@ function initTiltedCards() {
     card.appendChild(body);
     card.appendChild(caption);
 
-    // Physics state
+    // Physics state including 3D flip spring
+    let isFlipped = false;
     const state = {
       rx: 0, vrx: 0, ry: 0, vry: 0,
       lift: 0, vlift: 0, ty: 0, vty: 0,
+      flip: 0, vflip: 0,
       press: 0, vpress: 0, tip: 0, vtip: 0,
       shown: 0, vshown: 0, tx: 0, tyy: 0
     };
     const pointer = { nx: 0, ny: 0, x: 0, y: 0, inside: false, mouse: false, vx: 0, last: 0 };
-    const press = { active: false, x: 0, y: 0 };
+    const press = { active: false, x: 0, y: 0, moved: false };
     const tilt = { gamma: 0, beta: 0, baseGamma: 0, baseBeta: 0, calibrated: false, live: false };
     let raf = 0;
     let last = 0;
@@ -503,7 +571,8 @@ function initTiltedCards() {
       busy = tcStep(state, 'ry', inputX * amplitude, omega, zeta, dt) || busy;
       busy = tcStep(state, 'ty', 0, omega * 0.8, 0.9, dt) || busy;
       busy = tcStep(state, 'lift', lifted, omega, Math.max(zeta, 0.85), dt) || busy;
-      busy = tcStep(state, 'press', press.active ? 1 : 0, 26, 0.8, dt) || busy;
+      busy = tcStep(state, 'flip', isFlipped ? 180 : 0, reduced ? 18 : 9.5, 0.72, dt) || busy;
+      busy = tcStep(state, 'press', press.active && !press.moved ? 1 : 0, 26, 0.8, dt) || busy;
 
       const active = lifted > 0 || state.lift > 0.01;
       if (active !== card.hasAttribute('data-active')) card.toggleAttribute('data-active', active);
@@ -511,10 +580,11 @@ function initTiltedCards() {
       const scale = 1 + (config.scale - 1) * state.lift - 0.02 * state.press;
       const rx = state.rx;
       const ry = state.ry;
+      const currentFlip = state.flip;
       const radiansX = (rx * Math.PI) / 180;
       const radiansY = (ry * Math.PI) / 180;
 
-      body.style.transform = `translate3d(0, ${state.ty.toFixed(2)}px, 0) rotateX(${rx.toFixed(3)}deg) rotateY(${ry.toFixed(3)}deg) scale(${scale.toFixed(4)})`;
+      body.style.transform = `translate3d(0, ${state.ty.toFixed(2)}px, 0) rotateX(${rx.toFixed(3)}deg) rotateY(${(ry + currentFlip).toFixed(3)}deg) scale(${scale.toFixed(4)})`;
       body.style.setProperty('--tc-px', (Math.sin(radiansY) * config.parallax).toFixed(4));
       body.style.setProperty('--tc-py', (-Math.sin(radiansX) * config.parallax).toFixed(4));
 
@@ -524,12 +594,13 @@ function initTiltedCards() {
       const energy = Math.min(1, Math.hypot(rx, ry) / reach);
       body.style.setProperty('--tc-glare', (config.glare * Math.max(state.lift, energy)).toFixed(3));
 
-      // Dynamic soft shadow tracking
+      // Dynamic soft shadow tracking with flip turn factor
+      const turn = Math.abs(Math.cos((state.flip * Math.PI) / 180));
       const strength = config.shadow;
       const offsetX = -Math.sin(radiansY) * 20;
       const offsetY = 10 + 16 * state.lift + Math.sin(radiansX) * 16;
       const spread = scale * (0.88 + 0.04 * state.lift);
-      shadow.style.transform = `translate3d(${offsetX.toFixed(2)}px, ${offsetY.toFixed(2)}px, 0) scale(${spread.toFixed(4)})`;
+      shadow.style.transform = `translate3d(${offsetX.toFixed(2)}px, ${offsetY.toFixed(2)}px, 0) scale(${(spread * (0.2 + 0.8 * turn)).toFixed(4)}, ${spread.toFixed(4)})`;
       shadow.style.opacity = (strength * (0.6 + 0.4 * state.lift)).toFixed(3);
 
       // Tooltip caption tracking & swinging
@@ -601,6 +672,9 @@ function initTiltedCards() {
         pointer.vx = 0;
       }
       track(event);
+      if (press.active && Math.hypot(event.clientX - press.x, event.clientY - press.y) > 6) {
+        press.moved = true;
+      }
       wake();
     });
 
@@ -612,6 +686,7 @@ function initTiltedCards() {
 
     card.addEventListener('pointerdown', event => {
       press.active = true;
+      press.moved = false;
       press.x = event.clientX;
       press.y = event.clientY;
       pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
@@ -631,9 +706,38 @@ function initTiltedCards() {
 
     window.addEventListener('pointercancel', () => {
       press.active = false;
+      press.moved = true;
       pointer.inside = false;
       wake();
     }, { passive: true });
+
+    // Flip card on click (ignoring social links & drag)
+    card.addEventListener('click', event => {
+      if (event.target.closest('a')) return;
+      if (press.moved) return;
+      isFlipped = !isFlipped;
+      card.setAttribute('data-flipped', isFlipped ? 'true' : 'false');
+      back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+      front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
+      caption.textContent = isFlipped ? '↺ Click to Flip Back' : captionText;
+      wake();
+    });
+
+    // Keyboard support for flipping
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `${name} - ${role}. Click to flip card.`);
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        isFlipped = !isFlipped;
+        card.setAttribute('data-flipped', isFlipped ? 'true' : 'false');
+        back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+        front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
+        caption.textContent = isFlipped ? '↺ Click to Flip Back' : captionText;
+        wake();
+      }
+    });
 
     // Gyroscope orientation
     window.addEventListener('deviceorientation', event => {
