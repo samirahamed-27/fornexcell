@@ -1515,29 +1515,74 @@ button {
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
+  gap: 28px;
 }
 
+/* ==========================================================================
+   TILTED CARD COMPONENT (REACT BITS INTEGRATION)
+   ========================================================================== */
+
 .team-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  perspective: 800px;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.team-card.tilted-card {
+  cursor: pointer;
+}
+
+.team-card.tilted-card[data-active] {
+  z-index: 15;
+}
+
+/* Dynamic soft/brutalist shadow underneath that shifts & grows with lift */
+.tilted-card__shadow {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: var(--tc-shadow-color, rgba(0, 0, 0, 0.45));
+  filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  border-radius: 4px;
+}
+
+/* 3D Tilted Card Body */
+.tilted-card__body {
+  position: relative;
+  width: 100%;
+  height: 100%;
   background: var(--color-white);
   border: var(--border-thick);
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  position: relative;
-  transition: transform var(--transition-snappy), box-shadow var(--transition-snappy);
+  transform-style: preserve-3d;
+  will-change: transform;
+  overflow: hidden;
+  transition: box-shadow var(--transition-snappy);
 }
 
-.team-card:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: var(--shadow-lg);
+.team-card.tilted-card[data-active] .tilted-card__body {
+  box-shadow: 8px 14px 28px rgba(0, 0, 0, 0.28), 4px 4px 0px #111111;
 }
 
+/* Floating 3D Badge Layer */
 .team-card-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  z-index: 2;
+  z-index: 16;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
@@ -1547,6 +1592,8 @@ button {
   background: var(--color-yellow);
   color: var(--color-black);
   text-transform: uppercase;
+  transform: translateZ(18px);
+  pointer-events: none;
 }
 
 .team-card.leadership .team-card-badge {
@@ -1554,6 +1601,7 @@ button {
   color: var(--color-black);
 }
 
+/* Photo Wrap & Parallax Shift */
 .team-photo-wrap {
   width: 100%;
   height: 290px;
@@ -1564,20 +1612,100 @@ button {
 }
 
 .team-photo-wrap img {
-  width: 100%;
-  height: 100%;
+  width: calc(100% + 28px);
+  height: calc(100% + 28px);
+  margin-top: -14px;
+  margin-left: -14px;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(
+    calc(var(--tc-px, 0) * 16px),
+    calc(var(--tc-py, 0) * 16px),
+    0
+  );
+  transition: transform 0.08s ease-out;
 }
 
-.team-card:hover .team-photo-wrap img {
-  transform: scale(1.04);
+/* Dynamic Glare Effect */
+.tilted-card__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  background: radial-gradient(
+    farthest-corner circle at var(--tc-gx, 50%) var(--tc-gy, 50%),
+    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.45)) 0%,
+    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.33)) 12%,
+    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.16)) 25%,
+    rgba(var(--tc-glare-rgb, 255, 255, 255), 0) 55%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Rim Highlight */
+.tilted-card__rim {
+  position: absolute;
+  inset: 0;
+  z-index: 13;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--tc-rim-color, rgba(255, 255, 255, 0.18)),
+    inset 0 1px 0 var(--tc-rim-light, rgba(255, 255, 255, 0.3));
+  pointer-events: none;
+}
+
+/* Edge Glow */
+.tilted-card__edge {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  box-sizing: border-box;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    farthest-side circle at var(--tc-gx, 50%) var(--tc-gy, 50%),
+    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.85)) 0%,
+    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.43)) 36%,
+    rgba(var(--tc-glare-rgb, 255, 255, 255), 0) 70%
+  );
+  pointer-events: none;
+}
+
+/* Dynamic Tooltip Caption Tag that tracks cursor & swings with velocity */
+.tilted-card__caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  margin: 14px 0 0 14px;
+  padding: 6px 14px;
+  border: 2px solid #111111;
+  background: var(--color-yellow);
+  box-shadow: 3px 3px 0px #111111;
+  color: #111111;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
 }
 
 .team-info {
   padding: 18px;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  transform: translateZ(10px);
+  position: relative;
+  z-index: 15;
+}
   flex-grow: 1;
   justify-content: space-between;
 }

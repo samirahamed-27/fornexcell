@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReviewLivePreview();
   initTeamFilters();
   initCrimeSceneTapeScroll();
+  initTiltedCards();
 });
 
 /* --------------------------------------------------------------------------
@@ -365,5 +366,295 @@ function initTeamFilters() {
       applyFilters();
     });
   }
+}
+
+/* --------------------------------------------------------------------------
+   TILTED CARD COMPONENT (PORTED FROM REACT BITS JAVASCRIPT + CSS)
+   -------------------------------------------------------------------------- */
+const tcClamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+const tcStep = (state, key, target, omega, zeta, dt) => {
+  const velocity = `v${key}`;
+  const steps = Math.max(1, Math.ceil(dt / (1 / 240)));
+  const h = dt / steps;
+  for (let index = 0; index < steps; index++) {
+    state[velocity] += (omega * omega * (target - state[key]) - 2 * zeta * omega * state[velocity]) * h;
+    state[key] += state[velocity] * h;
+  }
+  const settled = Math.abs(target - state[key]) < 0.001 && Math.abs(state[velocity]) < 0.01;
+  if (settled) {
+    state[key] = target;
+    state[velocity] = 0;
+  }
+  return !settled;
+};
+
+function initTiltedCards() {
+  const cards = document.querySelectorAll('.team-card');
+  if (!cards.length) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+  cards.forEach(card => {
+    if (card.dataset.tiltedInit) return;
+    card.dataset.tiltedInit = 'true';
+    card.classList.add('tilted-card');
+
+    // Props configuration based on React Bits specification
+    const config = {
+      amplitude: 14,       // rotateAmplitude: 14deg
+      scale: 1.04,         // scaleOnHover: 1.04
+      smoothness: 0.6,     // smoothness: 0.6
+      glare: 0.5,          // glare: 0.5
+      shadow: 0.5,         // shadow: 0.5
+      parallax: 1.0,       // parallax: 1.0
+      showTooltip: true,   // showTooltip: true
+      gyroscope: true
+    };
+
+    // Extract caption info from existing member DOM
+    const name = card.querySelector('.team-name')?.textContent?.trim() || '';
+    const role = card.querySelector('.team-role')?.textContent?.trim() || '';
+    const captionText = role ? `${name} ✦ ${role}` : name;
+
+    // Create shadow element
+    const shadow = document.createElement('div');
+    shadow.className = 'tilted-card__shadow';
+    shadow.setAttribute('aria-hidden', 'true');
+
+    // Create body element and transfer existing card children into it
+    const body = document.createElement('div');
+    body.className = 'tilted-card__body';
+
+    while (card.firstChild) {
+      body.appendChild(card.firstChild);
+    }
+
+    // Append glare, rim, and edge overlays
+    const glare = document.createElement('span');
+    glare.className = 'tilted-card__glare';
+    glare.setAttribute('aria-hidden', 'true');
+
+    const rim = document.createElement('span');
+    rim.className = 'tilted-card__rim';
+    rim.setAttribute('aria-hidden', 'true');
+
+    const edge = document.createElement('span');
+    edge.className = 'tilted-card__edge';
+    edge.setAttribute('aria-hidden', 'true');
+
+    body.appendChild(glare);
+    body.appendChild(rim);
+    body.appendChild(edge);
+
+    // Create caption tooltip tag
+    const caption = document.createElement('figcaption');
+    caption.className = 'tilted-card__caption';
+    caption.textContent = captionText;
+
+    card.appendChild(shadow);
+    card.appendChild(body);
+    card.appendChild(caption);
+
+    // Physics state
+    const state = {
+      rx: 0, vrx: 0, ry: 0, vry: 0,
+      lift: 0, vlift: 0, ty: 0, vty: 0,
+      press: 0, vpress: 0, tip: 0, vtip: 0,
+      shown: 0, vshown: 0, tx: 0, tyy: 0
+    };
+    const pointer = { nx: 0, ny: 0, x: 0, y: 0, inside: false, mouse: false, vx: 0, last: 0 };
+    const press = { active: false, x: 0, y: 0 };
+    const tilt = { gamma: 0, beta: 0, baseGamma: 0, baseBeta: 0, calibrated: false, live: false };
+    let raf = 0;
+    let last = 0;
+    let visible = true;
+
+    const frame = now => {
+      raf = 0;
+      const dt = tcClamp((now - last) / 1000 || 0, 0, 0.05);
+      last = Math.max(last, now);
+      let busy = false;
+
+      const amplitude = config.amplitude * (reduced ? 0.3 : 1);
+      const hovering = pointer.inside && pointer.mouse;
+      const touching = press.active && !pointer.mouse;
+      const following = hovering || touching;
+
+      let inputX = 0;
+      let inputY = 0;
+      if (following) {
+        inputX = pointer.nx;
+        inputY = pointer.ny;
+      } else if (tilt.live && config.gyroscope) {
+        inputX = tcClamp((tilt.gamma - tilt.baseGamma) / 22, -1, 1);
+        inputY = tcClamp((tilt.beta - tilt.baseBeta) / 22, -1, 1);
+        tilt.baseGamma += (tilt.gamma - tilt.baseGamma) * (1 - Math.exp(-dt / 4));
+        tilt.baseBeta += (tilt.beta - tilt.baseBeta) * (1 - Math.exp(-dt / 4));
+        busy = true;
+      }
+
+      const omega = 20 * Math.pow(0.2, config.smoothness);
+      const zeta = 1 - 0.3 * config.smoothness;
+      const lifted = hovering || touching ? 1 : 0;
+
+      busy = tcStep(state, 'rx', -inputY * amplitude, omega, zeta, dt) || busy;
+      busy = tcStep(state, 'ry', inputX * amplitude, omega, zeta, dt) || busy;
+      busy = tcStep(state, 'ty', 0, omega * 0.8, 0.9, dt) || busy;
+      busy = tcStep(state, 'lift', lifted, omega, Math.max(zeta, 0.85), dt) || busy;
+      busy = tcStep(state, 'press', press.active ? 1 : 0, 26, 0.8, dt) || busy;
+
+      const active = lifted > 0 || state.lift > 0.01;
+      if (active !== card.hasAttribute('data-active')) card.toggleAttribute('data-active', active);
+
+      const scale = 1 + (config.scale - 1) * state.lift - 0.02 * state.press;
+      const rx = state.rx;
+      const ry = state.ry;
+      const radiansX = (rx * Math.PI) / 180;
+      const radiansY = (ry * Math.PI) / 180;
+
+      body.style.transform = `translate3d(0, ${state.ty.toFixed(2)}px, 0) rotateX(${rx.toFixed(3)}deg) rotateY(${ry.toFixed(3)}deg) scale(${scale.toFixed(4)})`;
+      body.style.setProperty('--tc-px', (Math.sin(radiansY) * config.parallax).toFixed(4));
+      body.style.setProperty('--tc-py', (-Math.sin(radiansX) * config.parallax).toFixed(4));
+
+      const reach = Math.max(amplitude, 1);
+      body.style.setProperty('--tc-gx', `${(50 + (ry / reach) * 46).toFixed(2)}%`);
+      body.style.setProperty('--tc-gy', `${(50 - (rx / reach) * 46).toFixed(2)}%`);
+      const energy = Math.min(1, Math.hypot(rx, ry) / reach);
+      body.style.setProperty('--tc-glare', (config.glare * Math.max(state.lift, energy)).toFixed(3));
+
+      // Dynamic soft shadow tracking
+      const strength = config.shadow;
+      const offsetX = -Math.sin(radiansY) * 20;
+      const offsetY = 10 + 16 * state.lift + Math.sin(radiansX) * 16;
+      const spread = scale * (0.88 + 0.04 * state.lift);
+      shadow.style.transform = `translate3d(${offsetX.toFixed(2)}px, ${offsetY.toFixed(2)}px, 0) scale(${spread.toFixed(4)})`;
+      shadow.style.opacity = (strength * (0.6 + 0.4 * state.lift)).toFixed(3);
+
+      // Tooltip caption tracking & swinging
+      const show = config.showTooltip && hovering ? 1 : 0;
+      busy = tcStep(state, 'shown', show, 16, 1, dt) || busy;
+      const follow = 1 - Math.exp(-dt / 0.035);
+      state.tx += (pointer.x - state.tx) * follow;
+      state.tyy += (pointer.y - state.tyy) * follow;
+      if (Math.abs(pointer.x - state.tx) + Math.abs(pointer.y - state.tyy) > 0.2) busy = true;
+      pointer.vx *= Math.exp(-dt / 0.08);
+      busy = tcStep(state, 'tip', reduced ? 0 : tcClamp(-pointer.vx * 0.012, -14, 14), 18, 0.62, dt) || busy;
+      caption.style.transform = `translate3d(${state.tx.toFixed(1)}px, ${state.tyy.toFixed(1)}px, 0) rotate(${state.tip.toFixed(2)}deg)`;
+      caption.style.opacity = Math.max(0, state.shown).toFixed(3);
+
+      if (busy && visible) raf = requestAnimationFrame(frame);
+    };
+
+    const wake = () => {
+      if (raf || !visible) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    };
+
+    const locate = event => {
+      const rect = card.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+        width: Math.max(1, rect.width),
+        height: Math.max(1, rect.height)
+      };
+    };
+
+    const track = event => {
+      const spot = locate(event);
+      const now = performance.now();
+      const elapsed = Math.max(8, now - (pointer.last || now - 16)) / 1000;
+      const dx = spot.x - pointer.x;
+      pointer.vx += (dx / elapsed - pointer.vx) * 0.5;
+      pointer.last = now;
+      pointer.x = spot.x;
+      pointer.y = spot.y;
+      pointer.nx = tcClamp((spot.x - spot.width / 2) / (spot.width / 2), -1, 1);
+      pointer.ny = tcClamp((spot.y - spot.height / 2) / (spot.height / 2), -1, 1);
+    };
+
+    card.addEventListener('pointerenter', event => {
+      pointer.inside = true;
+      pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
+      const spot = locate(event);
+      pointer.x = spot.x;
+      pointer.y = spot.y;
+      state.tx = spot.x;
+      state.tyy = spot.y;
+      pointer.vx = 0;
+      track(event);
+      wake();
+    });
+
+    card.addEventListener('pointermove', event => {
+      pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
+      if (!pointer.inside && pointer.mouse) {
+        pointer.inside = true;
+        const spot = locate(event);
+        pointer.x = spot.x;
+        pointer.y = spot.y;
+        state.tx = spot.x;
+        state.tyy = spot.y;
+        pointer.vx = 0;
+      }
+      track(event);
+      wake();
+    });
+
+    card.addEventListener('pointerleave', () => {
+      pointer.inside = false;
+      pointer.vx = 0;
+      wake();
+    });
+
+    card.addEventListener('pointerdown', event => {
+      press.active = true;
+      press.x = event.clientX;
+      press.y = event.clientY;
+      pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
+      if (!pointer.mouse) {
+        pointer.inside = true;
+        track(event);
+      }
+      wake();
+    });
+
+    window.addEventListener('pointerup', event => {
+      if (!press.active) return;
+      press.active = false;
+      if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') pointer.inside = false;
+      wake();
+    }, { passive: true });
+
+    window.addEventListener('pointercancel', () => {
+      press.active = false;
+      pointer.inside = false;
+      wake();
+    }, { passive: true });
+
+    // Gyroscope orientation
+    window.addEventListener('deviceorientation', event => {
+      if (event.gamma == null || event.beta == null) return;
+      tilt.gamma = event.gamma;
+      tilt.beta = event.beta;
+      if (!tilt.calibrated) {
+        tilt.baseGamma = event.gamma;
+        tilt.baseBeta = event.beta;
+        tilt.calibrated = true;
+      }
+      tilt.live = coarse;
+      wake();
+    });
+
+    // Observer to pause RAF when out of viewport
+    const observer = new IntersectionObserver(entries => {
+      visible = entries.some(entry => entry.isIntersecting);
+      wake();
+    });
+    observer.observe(card);
+  });
 }
 
