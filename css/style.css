@@ -299,7 +299,7 @@ button {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 99999;
   background: var(--bg-cream);
   border-bottom: var(--border-thick);
 }
@@ -310,7 +310,7 @@ button {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 99999;
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
@@ -1516,6 +1516,9 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 28px;
+  position: relative;
+  z-index: 10;
+  isolation: isolate; /* Creates isolated local stacking context so cards never bleed over header or outer page */
 }
 
 /* ==========================================================================
@@ -1539,11 +1542,11 @@ button {
   z-index: 1;
 }
 
-/* Ensure hovered or active card has top stacking priority over all neighboring cards */
+/* Ensure hovered or active card has local stacking priority over neighboring cards in the grid */
 .team-card.tilted-card:hover,
 .team-card.tilted-card:focus-within,
 .team-card.tilted-card[data-active] {
-  z-index: 1000 !important;
+  z-index: 20;
 }
 
 /* Dynamic soft/brutalist shadow underneath that shifts & grows with lift */
@@ -1790,7 +1793,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999 !important; /* Top priority above all cards */
+  z-index: 30;
   margin: 14px 0 0 14px;
   padding: 6px 14px;
   border: 2px solid #111111;

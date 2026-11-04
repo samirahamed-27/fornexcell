@@ -633,7 +633,6 @@ function initTiltedCards() {
 
     card.addEventListener('pointerenter', event => {
       pointer.inside = true;
-      card.style.zIndex = '1000'; // Make sure hovered card & tooltip are ALWAYS above all neighboring cards
       pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
       const spot = locate(event);
       pointer.x = spot.x;
@@ -649,7 +648,6 @@ function initTiltedCards() {
       pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
       if (!pointer.inside && pointer.mouse) {
         pointer.inside = true;
-        card.style.zIndex = '1000';
         const spot = locate(event);
         pointer.x = spot.x;
         pointer.y = spot.y;
@@ -669,7 +667,6 @@ function initTiltedCards() {
       pointer.vx = 0;
       state.shown = 0;
       caption.style.opacity = '0';
-      card.style.zIndex = '';
       wake();
     });
 
