@@ -1737,7 +1737,7 @@ button {
   color: var(--color-black);
 }
 
-/* Photo Wrap & Parallax Shift */
+/* Photo Wrap & Subtle Parallax Shift */
 .team-photo-wrap {
   width: 100%;
   height: 290px;
@@ -1748,63 +1748,36 @@ button {
 }
 
 .team-photo-wrap img {
-  width: calc(100% + 28px);
-  height: calc(100% + 28px);
-  margin-top: -14px;
-  margin-left: -14px;
+  width: calc(100% + 14px);
+  height: calc(100% + 14px);
+  margin-top: -7px;
+  margin-left: -7px;
   object-fit: cover;
   pointer-events: none;
   will-change: transform;
   transform: translate3d(
-    calc(var(--tc-px, 0) * 16px),
-    calc(var(--tc-py, 0) * 16px),
+    calc(var(--tc-px, 0) * 6px),
+    calc(var(--tc-py, 0) * 6px),
     0
   );
   transition: transform 0.08s ease-out;
 }
 
-/* Dynamic Glare Effect */
-.tilted-card__glare {
-  position: absolute;
-  inset: 0;
-  z-index: 12;
-  background: radial-gradient(
-    farthest-corner circle at var(--tc-gx, 50%) var(--tc-gy, 50%),
-    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.45)) 0%,
-    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.33)) 12%,
-    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.16)) 25%,
-    rgba(var(--tc-glare-rgb, 255, 255, 255), 0) 55%
-  );
-  mix-blend-mode: screen;
-  pointer-events: none;
+/* Glare & Edge glow completely removed per user request */
+.tilted-card__glare,
+.tilted-card__edge {
+  display: none !important;
 }
 
-/* Rim Highlight */
+/* Subtle Rim Accent */
 .tilted-card__rim {
   position: absolute;
   inset: 0;
   z-index: 13;
   border-radius: inherit;
   box-shadow:
-    inset 0 0 0 1px var(--tc-rim-color, rgba(255, 255, 255, 0.18)),
-    inset 0 1px 0 var(--tc-rim-light, rgba(255, 255, 255, 0.3));
-  pointer-events: none;
-}
-
-/* Edge Glow */
-.tilted-card__edge {
-  position: absolute;
-  inset: 0;
-  z-index: 14;
-  box-sizing: border-box;
-  padding: 1px;
-  border-radius: inherit;
-  background: radial-gradient(
-    farthest-side circle at var(--tc-gx, 50%) var(--tc-gy, 50%),
-    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.85)) 0%,
-    rgba(var(--tc-glare-rgb, 255, 255, 255), calc(var(--tc-glare, 0) * 0.43)) 36%,
-    rgba(var(--tc-glare-rgb, 255, 255, 255), 0) 70%
-  );
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   pointer-events: none;
 }
 

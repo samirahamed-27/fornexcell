@@ -428,15 +428,15 @@ function initTiltedCards() {
     card.dataset.tiltedInit = 'true';
     card.classList.add('tilted-card');
 
-    // Props configuration based on React Bits specification
+    // Props configuration based on React Bits specification (reduced tilt & glare removed)
     const config = {
-      amplitude: 14,       // rotateAmplitude: 14deg
-      scale: 1.04,         // scaleOnHover: 1.04
-      smoothness: 0.6,     // smoothness: 0.6
-      glare: 0.5,          // glare: 0.5
-      shadow: 0.5,         // shadow: 0.5
-      parallax: 1.0,       // parallax: 1.0
-      showTooltip: true,   // showTooltip: true
+      amplitude: 6.5,      // Reduced tilt amplitude from 14deg to 6.5deg
+      scale: 1.02,         // Subtle, elegant lift
+      smoothness: 0.65,    // Smooth damping
+      glare: 0,            // Glare completely removed
+      shadow: 0.35,        // Soft shadow
+      parallax: 0.4,       // Subtle parallax
+      showTooltip: true,   // Tooltip pill enabled
       gyroscope: true
     };
 
@@ -462,18 +462,10 @@ function initTiltedCards() {
       front.appendChild(card.firstChild);
     }
 
-    const frontGlare = document.createElement('span');
-    frontGlare.className = 'tilted-card__glare';
-    frontGlare.setAttribute('aria-hidden', 'true');
     const frontRim = document.createElement('span');
     frontRim.className = 'tilted-card__rim';
     frontRim.setAttribute('aria-hidden', 'true');
-    const frontEdge = document.createElement('span');
-    frontEdge.className = 'tilted-card__edge';
-    frontEdge.setAttribute('aria-hidden', 'true');
-    front.appendChild(frontGlare);
     front.appendChild(frontRim);
-    front.appendChild(frontEdge);
 
     // BACK FACE: role, small content brief & flip hint
     const back = document.createElement('div');
@@ -498,18 +490,10 @@ function initTiltedCards() {
       </div>
     `;
 
-    const backGlare = document.createElement('span');
-    backGlare.className = 'tilted-card__glare';
-    backGlare.setAttribute('aria-hidden', 'true');
     const backRim = document.createElement('span');
     backRim.className = 'tilted-card__rim';
     backRim.setAttribute('aria-hidden', 'true');
-    const backEdge = document.createElement('span');
-    backEdge.className = 'tilted-card__edge';
-    backEdge.setAttribute('aria-hidden', 'true');
-    back.appendChild(backGlare);
     back.appendChild(backRim);
-    back.appendChild(backEdge);
 
     body.appendChild(front);
     body.appendChild(back);
