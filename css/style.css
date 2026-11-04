@@ -1536,10 +1536,14 @@ button {
 
 .team-card.tilted-card {
   cursor: pointer;
+  z-index: 1;
 }
 
+/* Ensure hovered or active card has top stacking priority over all neighboring cards */
+.team-card.tilted-card:hover,
+.team-card.tilted-card:focus-within,
 .team-card.tilted-card[data-active] {
-  z-index: 15;
+  z-index: 1000 !important;
 }
 
 /* Dynamic soft/brutalist shadow underneath that shifts & grows with lift */
@@ -1786,7 +1790,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 30;
+  z-index: 9999 !important; /* Top priority above all cards */
   margin: 14px 0 0 14px;
   padding: 6px 14px;
   border: 2px solid #111111;
@@ -1803,6 +1807,14 @@ button {
   pointer-events: none;
   transform-origin: 0 0;
   will-change: transform, opacity;
+  transition: opacity 0.12s ease;
+}
+
+/* Completely remove the hovering dialogue box once the card is flipped */
+.team-card[data-flipped="true"] .tilted-card__caption {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .team-info {

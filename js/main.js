@@ -587,9 +587,9 @@ function initTiltedCards() {
       shadow.style.transform = `translate3d(${offsetX.toFixed(2)}px, ${offsetY.toFixed(2)}px, 0) scale(${(spread * (0.2 + 0.8 * turn)).toFixed(4)}, ${spread.toFixed(4)})`;
       shadow.style.opacity = (strength * (0.6 + 0.4 * state.lift)).toFixed(3);
 
-      // Tooltip caption tracking & swinging
-      const show = config.showTooltip && hovering ? 1 : 0;
-      busy = tcStep(state, 'shown', show, 16, 1, dt) || busy;
+      // Tooltip caption tracking & swinging (ONLY show on front face; NEVER show after flipping)
+      const show = config.showTooltip && hovering && !isFlipped ? 1 : 0;
+      busy = tcStep(state, 'shown', show, 20, 1, dt) || busy;
       const follow = 1 - Math.exp(-dt / 0.035);
       state.tx += (pointer.x - state.tx) * follow;
       state.tyy += (pointer.y - state.tyy) * follow;
@@ -597,7 +597,7 @@ function initTiltedCards() {
       pointer.vx *= Math.exp(-dt / 0.08);
       busy = tcStep(state, 'tip', reduced ? 0 : tcClamp(-pointer.vx * 0.012, -14, 14), 18, 0.62, dt) || busy;
       caption.style.transform = `translate3d(${state.tx.toFixed(1)}px, ${state.tyy.toFixed(1)}px, 0) rotate(${state.tip.toFixed(2)}deg)`;
-      caption.style.opacity = Math.max(0, state.shown).toFixed(3);
+      caption.style.opacity = (!isFlipped && show) ? Math.max(0, state.shown).toFixed(3) : '0';
 
       if (busy && visible) raf = requestAnimationFrame(frame);
     };
@@ -633,6 +633,7 @@ function initTiltedCards() {
 
     card.addEventListener('pointerenter', event => {
       pointer.inside = true;
+      card.style.zIndex = '1000'; // Make sure hovered card & tooltip are ALWAYS above all neighboring cards
       pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
       const spot = locate(event);
       pointer.x = spot.x;
@@ -648,6 +649,7 @@ function initTiltedCards() {
       pointer.mouse = event.pointerType === 'mouse' || event.pointerType === 'pen';
       if (!pointer.inside && pointer.mouse) {
         pointer.inside = true;
+        card.style.zIndex = '1000';
         const spot = locate(event);
         pointer.x = spot.x;
         pointer.y = spot.y;
@@ -665,6 +667,9 @@ function initTiltedCards() {
     card.addEventListener('pointerleave', () => {
       pointer.inside = false;
       pointer.vx = 0;
+      state.shown = 0;
+      caption.style.opacity = '0';
+      card.style.zIndex = '';
       wake();
     });
 
@@ -703,7 +708,9 @@ function initTiltedCards() {
       card.setAttribute('data-flipped', isFlipped ? 'true' : 'false');
       back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
       front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
-      caption.textContent = isFlipped ? '↺ Click to Flip Back' : captionText;
+      // Completely dismiss hover tooltip after flipping
+      state.shown = 0;
+      caption.style.opacity = '0';
       wake();
     });
 
@@ -718,7 +725,8 @@ function initTiltedCards() {
         card.setAttribute('data-flipped', isFlipped ? 'true' : 'false');
         back.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
         front.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
-        caption.textContent = isFlipped ? '↺ Click to Flip Back' : captionText;
+        state.shown = 0;
+        caption.style.opacity = '0';
         wake();
       }
     });
